@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>여러 개의 변수와 출력</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      text-align: center;
+      margin: 30px;
+      background-color: #fffdf5;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    .items {
+      margin: 20px;
+    }
+    .item {
+      font-size: 50px;
+      cursor: grab;
+      margin: 10px;
+    }
+    .boxes {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .box {
+      width: 180px;
+      height: 140px;
+      border: 4px solid #4CAF50;
+      border-radius: 12px;
+      background-color: #f0fff0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 20px auto;
+      transition: 0.3s;
+      position: relative;
+      flex-direction: column;
+    }
+    .box.highlight {
+      background-color: #d6ffd6;
+      transform: scale(1.05);
+    }
+    .label {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4CAF50;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .output {
+      margin-top: 40px;
+      padding: 20px;
+      border: 3px solid #333;
+      border-radius: 10px;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fafafa;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 8px 15px;
+      font-size: 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 24px;
+      color: #333;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📦 변수는 여러 개의 상자!</h1>
+  <p>각 상자는 이름(변수명)을 가지고 있어요.<br>
+     과일과 빵을 담아보고, 아래에서 변수를 불러보세요.<br>
+     (상자를 클릭하면 비워져요)</p>
+
+  <div class="items">
+    <span class="item" draggable="true" id="apple">🍎</span>
+    <span class="item" draggable="true" id="bread">🍞</span>
+    <span class="item" draggable="true" id="banana">🍌</span>
+    <span class="item" draggable="true" id="grape">🍇</span>
+  </div>
+
+  <div class="boxes">
+    <div class="box" id="박스1">
+      <div class="label">박스1</div>
+      (비어 있음)
+    </div>
+
+    <div class="box" id="박스2">
+      <div class="label">박스2</div>
+      (비어 있음)
+    </div>
+
+    <div class="box" id="박스3">
+      <div class="label">박스3</div>
+      (비어 있음)
+    </div>
+
+    <div class="box" id="변수A">
+      <div class="label">변수A</div>
+      (비어 있음)
+    </div>
+  </div>
+
+  <div class="output">
+    <h2>📢 변수 호출 결과</h2>
+    <input type="text" id="varName" placeholder="예: ">
+    <button onclick="showValue()">출력</button>
+    <div class="result" id="result">(결과가 여기에 표시돼요)</div>
+  </div>
+
+  <script>
+    const boxes = document.querySelectorAll(".box");
+    const variableValues = {}; // 변수 상태 저장
+
+
+
+    // 드래그 시작
+    document.querySelectorAll(".item").forEach(item => {
+      item.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text", e.target.id);
+      });
+    });
+
+    // 모든 상자에 이벤트 연결
+	boxes.forEach(box => {
+ 	 const labelEl = box.querySelector(".label");
+ 	 if (!labelEl) return;
+  		const varName = labelEl.innerText.trim();
+
+ 	 // ✅ 여기에 초기화 추가
+  	 variableValues[varName] = null;
+
+
+      // 드래그 올릴 때
+      box.addEventListener("dragover", e => {
+        e.preventDefault();
+        box.classList.add("highlight");
+      });
+
+      // 드래그 떠날 때
+      box.addEventListener("dragleave", () => {
+        box.classList.remove("highlight");
+      });
+
+      // 드롭 (값 담기)
+      box.addEventListener("drop", e => {
+        e.preventDefault();
+        const id = e.dataTransfer.getData("text");
+        const item = document.getElementById(id);
+        const label = box.querySelector(".label").outerHTML;
+        box.innerHTML = `${label} ${item.textContent}`;
+        variableValues[varName] = item.textContent; // 변수값 저장
+        box.classList.remove("highlight");
+      });
+
+      // 클릭 시 비우기
+      box.addEventListener("click", () => {
+        const label = box.querySelector(".label").outerHTML;
+        box.innerHTML = `${label} (비어 있음)`;
+        variableValues[varName] = null; // 초기화
+      });
+    });
+
+      // 엔터 입력 시 showValue 실행
+     document.getElementById("varName").addEventListener("keyup", function(event) {
+     if (event.key === "Enter") {
+        showValue();
+      }
+     });
+
+
+    // 결과 출력 함수
+    function showValue() {
+      const name = document.getElementById("varName").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (variableValues.hasOwnProperty(name)) {
+        const value = variableValues[name];
+        resultDiv.innerText = value ? `${name} = ${value}` : `${name}는 비어 있어요`;
+      } else {
+        resultDiv.innerText = "존재하지 않는 변수예요!";
+      }
+    }
+  </script>
+
+</body>
+</html>
