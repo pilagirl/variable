@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>변수와 계산</title>
+  <title>변수 연습 - 과일 & 숫자</title>
   <style>
     body {
       font-family: "Arial", sans-serif;
@@ -12,6 +12,25 @@
     }
     h1 {
       color: #4CAF50;
+    }
+    .tab-buttons {
+      margin-bottom: 20px;
+    }
+    .tab-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #4CAF50;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .active {
+      display: block;
     }
     .items {
       margin: 20px;
@@ -79,7 +98,7 @@
       font-size: 16px;
       margin: 5px;
     }
-    button {
+    button.action {
       padding: 8px 15px;
       font-size: 16px;
       background: #4CAF50;
@@ -98,149 +117,143 @@
 </head>
 <body>
 
-  <h1>📦 변수와 계산 연습</h1>
-  <p>상자에 숫자를 넣고, 변수를 불러보거나 계산해보세요.<br>(상자를 클릭하면 비워져요)</p>
-
-  <!-- 아이템 영역 -->
-  <div class="items">
-    <span class="item" draggable="true" id="num5">5</span>
-    <span class="item" draggable="true" id="num3">3</span>
-    <span class="item" draggable="true" id="num10">10</span>
-    <span class="item" draggable="true" id="num2">2</span>
+  <h1>📦 변수는 상자!</h1>
+  <div class="tab-buttons">
+    <button onclick="openTab('fruit')">과일 페이지</button>
+    <button onclick="openTab('number')">숫자 페이지</button>
   </div>
 
-  <!-- 상자 영역 -->
-  <div class="boxes">
-    <div class="box" id="박스1">
-      <div class="label">박스1</div>
-      (비어 있음)
+  <!-- 과일 페이지 -->
+  <div id="fruit" class="tab-content active">
+    <h2>🍎 과일 버전</h2>
+    <div class="items">
+      <span class="item" draggable="true" id="apple">🍎</span>
+      <span class="item" draggable="true" id="bread">🍞</span>
+      <span class="item" draggable="true" id="banana">🍌</span>
+      <span class="item" draggable="true" id="grape">🍇</span>
     </div>
-    <div class="box" id="박스2">
-      <div class="label">박스2</div>
-      (비어 있음)
+    <div class="boxes">
+      <div class="box" id="f박스1"><div class="label">박스1</div>(비어 있음)</div>
+      <div class="box" id="f박스2"><div class="label">박스2</div>(비어 있음)</div>
+      <div class="box" id="f박스3"><div class="label">박스3</div>(비어 있음)</div>
+      <div class="box" id="f변수A"><div class="label">변수A</div>(비어 있음)</div>
     </div>
-    <div class="box" id="박스3">
-      <div class="label">박스3</div>
-      (비어 있음)
-    </div>
-    <div class="box" id="변수A">
-      <div class="label">변수A</div>
-      (비어 있음)
+    <div class="output">
+      <h2>📢 변수 호출 결과</h2>
+      <input type="text" id="fVarName" placeholder="예: 박스1">
+      <button class="action" onclick="showValue('f')">출력</button>
+      <div class="result" id="fResult">(결과가 여기에 표시돼요)</div>
     </div>
   </div>
 
-  <!-- 출력 영역 -->
-  <div class="output">
-    <h2>📢 변수 호출 결과</h2>
-    <input type="text" id="varName" placeholder="예: 박스1">
-    <button onclick="showValue()">출력</button>
-    <div class="result" id="result">(결과가 여기에 표시돼요)</div>
-  </div>
-
-  <!-- 계산 결과 영역 -->
-  <div class="calc-output">
-    <h2>🧮 계산하기</h2>
-    <select id="var1">
-      <option>박스1</option>
-      <option>박스2</option>
-      <option>박스3</option>
-      <option>변수A</option>
-    </select>
-    <select id="operator">
-      <option value="+">+</option>
-      <option value="-">-</option>
-      <option value="*">*</option>
-      <option value="/">/</option>
-    </select>
-    <select id="var2">
-      <option>박스1</option>
-      <option>박스2</option>
-      <option>박스3</option>
-      <option>변수A</option>
-    </select>
-    <button onclick="calculate()">=</button>
-    <div class="result" id="calcResult">(계산 결과가 여기에 표시돼요)</div>
+  <!-- 숫자 페이지 -->
+  <div id="number" class="tab-content">
+    <h2>🔢 숫자 버전</h2>
+    <div class="items">
+      <span class="item" draggable="true" id="num5">5</span>
+      <span class="item" draggable="true" id="num3">3</span>
+      <span class="item" draggable="true" id="num10">10</span>
+      <span class="item" draggable="true" id="num2">2</span>
+    </div>
+    <div class="boxes">
+      <div class="box" id="n박스1"><div class="label">박스1</div>(비어 있음)</div>
+      <div class="box" id="n박스2"><div class="label">박스2</div>(비어 있음)</div>
+      <div class="box" id="n박스3"><div class="label">박스3</div>(비어 있음)</div>
+      <div class="box" id="n변수A"><div class="label">변수A</div>(비어 있음)</div>
+    </div>
+    <div class="output">
+      <h2>📢 변수 호출 결과</h2>
+      <input type="text" id="nVarName" placeholder="예: 박스1">
+      <button class="action" onclick="showValue('n')">출력</button>
+      <div class="result" id="nResult">(결과가 여기에 표시돼요)</div>
+    </div>
+    <div class="calc-output">
+      <h2>🧮 계산하기</h2>
+      <select id="var1">
+        <option>박스1</option><option>박스2</option><option>박스3</option><option>변수A</option>
+      </select>
+      <select id="operator">
+        <option value="+">+</option><option value="-">-</option><option value="*">*</option><option value="/">/</option>
+      </select>
+      <select id="var2">
+        <option>박스1</option><option>박스2</option><option>박스3</option><option>변수A</option>
+      </select>
+      <button class="action" onclick="calculate()">=</button>
+      <div class="result" id="calcResult">(계산 결과가 여기에 표시돼요)</div>
+    </div>
   </div>
 
   <script>
-    const boxes = document.querySelectorAll(".box");
-    const variableValues = {}; // 변수 상태 저장
+    // 탭 전환
+    function openTab(tab) {
+      document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+      document.getElementById(tab).classList.add("active");
+    }
 
-    // 드래그 시작
+    // 변수 저장소
+    const variableValues = { f: {}, n: {} };
+
+    // 공통 함수: 박스 세팅
+    function setupBoxes(prefix, isNumber=false) {
+      const boxes = document.querySelectorAll(`#${prefix === 'f' ? 'fruit' : 'number'} .box`);
+      boxes.forEach(box => {
+        const labelEl = box.querySelector(".label");
+        if (!labelEl) return;
+        const varName = labelEl.innerText.trim();
+        variableValues[prefix][varName] = null;
+
+        box.addEventListener("dragover", e => { e.preventDefault(); box.classList.add("highlight"); });
+        box.addEventListener("dragleave", () => box.classList.remove("highlight"));
+        box.addEventListener("drop", e => {
+          e.preventDefault();
+          const id = e.dataTransfer.getData("text");
+          const item = document.getElementById(id);
+          const label = box.querySelector(".label").outerHTML;
+          box.innerHTML = `${label} ${item.textContent}`;
+          variableValues[prefix][varName] = isNumber ? parseFloat(item.textContent) : item.textContent;
+          box.classList.remove("highlight");
+        });
+        box.addEventListener("click", () => {
+          const label = box.querySelector(".label").outerHTML;
+          box.innerHTML = `${label} (비어 있음)`;
+          variableValues[prefix][varName] = null;
+        });
+      });
+    }
+
+    // 드래그 시작 이벤트
     document.querySelectorAll(".item").forEach(item => {
       item.addEventListener("dragstart", e => {
         e.dataTransfer.setData("text", e.target.id);
       });
     });
 
-    // 모든 상자에 이벤트 연결
-    boxes.forEach(box => {
-      const labelEl = box.querySelector(".label");
-      if (!labelEl) return;
-      const varName = labelEl.innerText.trim();
+    // 과일 박스 세팅
+    setupBoxes('f', false);
+    // 숫자 박스 세팅
+    setupBoxes('n', true);
 
-      // 초기화
-      variableValues[varName] = null;
-
-      // 드래그 올릴 때
-      box.addEventListener("dragover", e => {
-        e.preventDefault();
-        box.classList.add("highlight");
-      });
-
-      // 드래그 떠날 때
-      box.addEventListener("dragleave", () => {
-        box.classList.remove("highlight");
-      });
-
-      // 드롭 (값 담기)
-      box.addEventListener("drop", e => {
-        e.preventDefault();
-        const id = e.dataTransfer.getData("text");
-        const item = document.getElementById(id);
-        const label = box.querySelector(".label").outerHTML;
-        box.innerHTML = `${label} ${item.textContent}`;
-        variableValues[varName] = parseFloat(item.textContent); // 숫자 저장
-        box.classList.remove("highlight");
-      });
-
-      // 클릭 시 비우기
-      box.addEventListener("click", () => {
-        const label = box.querySelector(".label").outerHTML;
-        box.innerHTML = `${label} (비어 있음)`;
-        variableValues[varName] = null; // 초기화
-      });
-    });
-
-    // 엔터 입력 시 showValue 실행
-    document.getElementById("varName").addEventListener("keyup", function(event) {
-      if (event.key === "Enter") {
-        showValue();
-      }
-    });
-
-    // 결과 출력 함수
-    function showValue() {
-      const name = document.getElementById("varName").value.trim();
-      const resultDiv = document.getElementById("result");
-
-      if (variableValues.hasOwnProperty(name)) {
-        const value = variableValues[name];
+    // 변수 출력
+    function showValue(prefix) {
+      const name = document.getElementById(prefix + "VarName").value.trim();
+      const resultDiv = document.getElementById(prefix + "Result");
+      if (variableValues[prefix].hasOwnProperty(name)) {
+        const value = variableValues[prefix][name];
         resultDiv.innerText = value !== null ? `${name} = ${value}` : `${name}는 비어 있어요`;
       } else {
         resultDiv.innerText = "존재하지 않는 변수예요!";
       }
     }
 
-    // 계산 함수
+    // 계산 (숫자 전용)
     function calculate() {
       const var1 = document.getElementById("var1").value;
       const var2 = document.getElementById("var2").value;
       const op = document.getElementById("operator").value;
       const resultDiv = document.getElementById("calcResult");
 
-      const val1 = variableValues[var1];
-      const val2 = variableValues[var2];
+      const val1 = variableValues.n[var1];
+      const val2 = variableValues.n[var2];
 
       if (val1 === null || val2 === null) {
         resultDiv.innerText = "선택한 상자에 값이 없어요!";
@@ -252,13 +265,10 @@
         case "+": calc = val1 + val2; break;
         case "-": calc = val1 - val2; break;
         case "*": calc = val1 * val2; break;
-        case "/": 
-          calc = val2 !== 0 ? val1 / val2 : "0으로 나눌 수 없어요!";
-          break;
+        case "/": calc = val2 !== 0 ? val1 / val2 : "0으로 나눌 수 없어요!"; break;
       }
       resultDiv.innerText = `${var1} ${op} ${var2} = ${calc}`;
     }
   </script>
-
 </body>
 </html>
