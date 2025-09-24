@@ -269,6 +269,12 @@
       }
       resultDiv.innerText = `${var1} ${op} ${var2} = ${calc}`;
     }
+
+    // 과일 페이지 입력창에서 Enter 키로 출력
+    document.getElementById("fruitInput").addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        showValue('fruit');
   </script>
 </body>
 </html>
+
