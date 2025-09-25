@@ -117,11 +117,14 @@
 </head>
 <body>
 
+
   <h1>📦 변수는 상자!</h1>
   <div class="tab-buttons">
     <button onclick="openTab('fruit')">과일 페이지</button>
     <button onclick="openTab('number')">숫자 페이지</button>
   </div>
+
+<p>각 상자는 이름(변수명)을 가지고 있어요.<br> 과일이나 빵, 숫자를 담아보고, 아래에서 변수를 불러보세요.<br> (상자를 클릭하면 비워져요)</p>
 
   <!-- 과일 페이지 -->
   <div id="fruit" class="tab-content active">
@@ -270,9 +273,17 @@
       resultDiv.innerText = `${var1} ${op} ${var2} = ${calc}`;
     }
 
+ // 과일 페이지 변수 호출 결과 엔터 키 이벤트
+  document.getElementById("fVarName").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      showValue('f');
+    }
+  });
 
+// 엔터 입력시 실행 (숫자 페이지)
+document.getElementById("nVarName").addEventListener("keyup", e => {
+  if (e.key === "Enter") showValue('n');
+});
   </script>
 </body>
 </html>
-
-
